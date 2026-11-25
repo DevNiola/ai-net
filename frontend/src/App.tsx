@@ -14,6 +14,20 @@ import { CommandPalette } from './components/common/CommandPalette'
 import { useCommandPalette } from './hooks/useCommandPalette'
 import './components/common/Toast.css'
 
+// Lazy-loaded page routes
+const DashboardPage = lazy(() => import('./pages/dashboard'))
+const WalletPage = lazy(() => import('./pages/WalletPage'))
+const AgentsPage = lazy(() => import('./pages/AgentsPage'))
+const NewTaskPage = lazy(() => import('./pages/tasks/NewTaskPage'))
+const TaskHistoryPage = lazy(() => import('./pages/tasks/TaskHistoryPage'))
+const TaskDetailPage = lazy(() => import('./pages/TaskDetailPage'))
+const RendererDemoPage = lazy(() => import('./pages/RendererDemoPage'))
+const NotificationsPage = lazy(() => import('./pages/NotificationsPage'))
+
+const RouteLoadingFallback: React.FC = () => (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '40vh' }} aria-busy="true" aria-label="Loading…" />
+)
+
 // Lives INSIDE <Router> and the theme/wallet providers: useCommandPalette()
 // calls useNavigate(), useTheme() and useWallet(), which all require their
 // context providers to be mounted above this component.
@@ -75,6 +89,14 @@ const RoutedContent: React.FC = () => {
                     element={
                       <ProtectedRoute>
                         <TaskDetailPage />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/notifications"
+                    element={
+                      <ProtectedRoute>
+                        <NotificationsPage />
                       </ProtectedRoute>
                     }
                   />
