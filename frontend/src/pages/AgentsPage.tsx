@@ -25,6 +25,7 @@ import { LayoutGrid, List, Users, Plus } from 'lucide-react'
 import { useAgentRegistry } from '../hooks/useAgentRegistry'
 import { AgentTable } from '../components/agents/AgentTable'
 import { AgentFilterBar } from '../components/agents/AgentFilterBar'
+import { AgentFilterPanel } from '../components/agents/AgentFilterPanel'
 import { AgentDetailModal } from '../components/agents/AgentDetailModal'
 import { AgentRegistryCard } from '../components/agents/AgentRegistryCard'
 import { EmptyState } from '../components/common/EmptyState'
@@ -151,6 +152,7 @@ function AgentsPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [selected, setSelected] = useState<AgentRecord | null>(null)
   const [viewMode, setViewMode] = useState<ViewMode>('card')
+  const [panelOpen, setPanelOpen] = useState<boolean>(false)
 
   // Filter/sort state derived from URL
   const filters = useMemo(
@@ -253,6 +255,13 @@ function AgentsPage() {
             onChange={updateFilters}
             onReset={resetFilters}
             onRefresh={refetch}
+          />
+
+          {/* Collapsible filter panel (sidebar-style, URL-synced) */}
+          <AgentFilterPanel
+            isOpen={panelOpen}
+            onToggle={() => setPanelOpen((p) => !p)}
+            capabilities={capabilities}
           />
 
           {/* ── Card view ─────────────────────────────────────────────── */}
