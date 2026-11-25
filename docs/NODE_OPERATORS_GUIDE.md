@@ -498,6 +498,23 @@ pg_restore -U ainet_user -d ainet_db -v -c /var/backups/ainet/ainet_YYYYMMDD_HHM
 sudo systemctl start ainet-node
 ```
 
+### 11.3 Incident Response Runbook
+
+For structured recovery procedures during production incidents, see the **[Disaster Recovery Runbook](./DISASTER_RECOVERY_RUNBOOK.md)**.
+
+The runbook covers six scenarios with Symptoms → Diagnosis → Recovery Steps → Verification for each:
+
+| Scenario | Description | Estimated RTO |
+|---|---|---|
+| A | Database corruption recovery from S3 backup | 60–120 min |
+| B | All agents offline | 10–20 min |
+| C | Stellar Horizon unreachable | 5–15 min |
+| D | Venice AI unavailable (degraded mode) | 2–5 min |
+| E | Payment escrow stuck | 15–30 min |
+| F | Full cluster failure (complete bring-up) | 45–90 min |
+
+It also contains the on-call escalation contact matrix and the post-incident review checklist.
+
 ---
 
 ## 12. Troubleshooting & Common Errors
